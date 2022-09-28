@@ -2,19 +2,19 @@ import random
 from graphics import *
 
 class Graph:
-    def __init__(self, vertexes=25, edges_to_remove=10):
-        self.vertexes = vertexes
-        self.width = int(vertexes ** 0.5)
-        self.structure = {i: [] for i in range(vertexes)}
+    def __init__(self, vertices=25, edges_to_remove=10):
+        self.vertices = vertices
+        self.width = int(vertices ** 0.5)
+        self.structure = {i: [] for i in range(vertices)}
         self._form_structure()
         self._remove_edges(edges_to_remove)
         
     def _form_structure(self):
-        for i in range(self.vertexes-1):
+        for i in range(self.vertices-1):
             if (i+1) % self.width != 0:
                 self.structure[i].append(i+1)
                 self.structure[i+1].append(i)
-            if i < (self.vertexes - self.width):
+            if i < (self.vertices - self.width):
                 self.structure[i].append(i+self.width)
                 self.structure[i+self.width].append(i)
 
@@ -27,15 +27,15 @@ class Graph:
         self.structure[v2].remove(v1)
 
     def is_connected(self):
-        not_visited = [i for i in range(self.vertexes)]
+        not_visited = [i for i in range(self.vertices)]
         queue = [0]
 
         while queue:
             s = queue.pop(0)
-            for neighbour in self.structure[s]:
-                if neighbour in not_visited:
-                    not_visited.remove(neighbour)
-                    queue.append(neighbour)
+            for neighbor in self.structure[s]:
+                if neighbor in not_visited:
+                    not_visited.remove(neighbor)
+                    queue.append(neighbor)
 
         return not bool(not_visited)
 
@@ -45,15 +45,15 @@ class Graph:
             vertex = random.randint(0, len(self.structure)-1)
             if len(self.structure[vertex])-1 == 0:
                 continue
-            neighbour = random.randint(0, len(self.structure[vertex])-1)
-            neighbour = self.structure[vertex][neighbour]
+            neighbor = random.randint(0, len(self.structure[vertex])-1)
+            neighbor = self.structure[vertex][neighbor]
 
-            self._delete_edge(vertex, neighbour)
+            self._delete_edge(vertex, neighbor)
             if not self.is_connected():
-                self._add_edge(vertex, neighbour)
+                self._add_edge(vertex, neighbor)
             else:
                 i += 1
-
+                
     def draw(self, window):
         circles = []
         for i in range(self.width):
@@ -70,7 +70,7 @@ def main():
     graph = Graph()
     win = GraphWin("graph", 500, 500)
     graph.draw(win)
-    input('press "enter" to exit')
+    input('submit input (press "enter") to exit')
     win.close()
 
 main()
