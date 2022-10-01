@@ -1,1 +1,1 @@
-graphics==0.1
+ipycanvas==0.13.1
