@@ -1,2 +1,0 @@
-import-ipynb==0.1.4
-ipycanvas==0.13.1
